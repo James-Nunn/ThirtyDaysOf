@@ -41,6 +41,7 @@
 /* Begin PBXFileReference section */
 		1A0049212B46D3CD0056808D /* NewHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHabitView.swift; sourceTree = "<group>"; };
 		1A00A80D2B4683DA0006E831 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		1A0478942B47AA84009EB58E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1A3BD3CD2B4535B500B3FF36 /* ThirtyDaysOf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThirtyDaysOf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A3BD3D02B4535B500B3FF36 /* ThirtyDaysOfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirtyDaysOfApp.swift; sourceTree = "<group>"; };
 		1A3BD3D42B4535B500B3FF36 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -112,6 +113,7 @@
 		1A3BD3C42B4535B500B3FF36 = {
 			isa = PBXGroup;
 			children = (
+				1A0478942B47AA84009EB58E /* README.md */,
 				1A3BD3CF2B4535B500B3FF36 /* ThirtyDaysOf */,
 				1A3BD3E32B4535B700B3FF36 /* ThirtyDaysOfTests */,
 				1A3BD3ED2B4535B700B3FF36 /* ThirtyDaysOfUITests */,
