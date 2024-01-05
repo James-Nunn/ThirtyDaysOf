@@ -19,9 +19,5 @@ final class Challenge {
         self.startDate = startDate
         self.endDate = endDate
     }
-    
-    func addChallenge() {
-        
-    }
 }
 

@@ -2,6 +2,10 @@
 
 A habit/ challenge tracker
 
-##Features:
-- Notifications
+## Features:
+- Welcome onboard screen
+- Add Habit
+- Progress Bar
+- SwiftData
+- (Coming) Notifications
 

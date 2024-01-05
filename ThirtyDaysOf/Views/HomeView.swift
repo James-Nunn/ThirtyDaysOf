@@ -20,55 +20,52 @@ struct HomeView: View {
     var body: some View {
         NavigationStack{
             GeometryReader{ geo in
-                VStack{
+                ForEach(challenges){ c in
                     VStack{
-                        Text("You're Progress Towards 30 Days of")
-                        Text("\(challenges.first?.name ?? "")")
-                        .bigBlue()
-                    }
-                    .medBlue()
-                    
-                    ZStack{
-                        Circle()
-                            .trim(from: 0, to: 0.5)
-                            .stroke(Color.blue.opacity(0.5), style: StrokeStyle(lineWidth: 30, lineCap: .round))
-                            .rotationEffect(.degrees(180))
-                        HStack{
-                            Text("Day:")
-                            Text(String(format: "%.f", progress * 30))
+                        VStack{
+                            Text("You're Progress Towards 30 Days of")
+                            Text("\(c.name)")
+                                .bigBlue()
                         }
-                        Circle()
-                            .trim(from: 0, to: Double(progress) * 0.5)
-                            .stroke(Color.blue, style: StrokeStyle(lineWidth: 30, lineCap: .round))
-                            .rotationEffect(.degrees(180))
-                            .animation(.easeOut, value: Double(progress) * 0.5)
-                    }
-                    .frame(height: geo.size.height * 0.5)
-                    .padding()
-                    VStack{
-                        Text(splashText(p: progress))
-                            .bigBlue()
+                        .medBlue()
                         
-                    }.padding(.top, geo.size.height * -0.25)
-                    Spacer()
-                    List{
-                        ForEach(challenges){ c in
-                        Text("c.name")
-                        }.onDelete(perform: deleteChallenges)
+                        ZStack{
+                            Circle()
+                                .trim(from: 0, to: 0.5)
+                                .stroke(Color.blue.opacity(0.5), style: StrokeStyle(lineWidth: 30, lineCap: .round))
+                                .rotationEffect(.degrees(180))
+                            HStack{
+                                Text("Day:")
+                                Text(String(format: "%.f", progress * 30))
+                            }
+                            Circle()
+                                .trim(from: 0, to: Double(progress) * 0.5)
+                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 30, lineCap: .round))
+                                .rotationEffect(.degrees(180))
+                                .animation(.easeOut, value: Double(progress) * 0.5)
+                        }
+                        .frame(height: geo.size.height * 0.5)
+                        .padding()
+                        VStack{
+                            Text(splashText(p: progress))
+                                .bigBlue()
+                            
+                        }.padding(.top, geo.size.height * -0.25)
+                        Spacer()
                     }
-                }
-                .padding()
-                .fullScreenCover(isPresented: $presentWelcome, content: {OnboardingView(presentWelcome: $presentWelcome)})
-                .fullScreenCover(isPresented: $presentNewHabit, content: {
-                    NewHabitView()
-                })
-                
-                .toolbar{
-                    ToolbarItem{
-                        Button(action: {presentNewHabit = true}, label: {
-                            Image(systemName: "plus")
-                        })
+                    .padding()
+                    .onAppear{
+                        progress = (30 - c.endDate.timeIntervalSince(Date.now)/60/60/24)/30
                     }
+                }.onDelete(perform: deleteChallenges)
+            }
+            .toolbar{
+                ToolbarItem{
+                    Button(action: {
+                        presentNewHabit = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
                 }
             }
         }.onAppear{
@@ -76,6 +73,10 @@ struct HomeView: View {
                 presentNewHabit = true
             }
         }
+        .fullScreenCover(isPresented: $presentWelcome, content: {OnboardingView(presentWelcome: $presentWelcome)})
+        .fullScreenCover(isPresented: $presentNewHabit, content: {
+            NewHabitView(presentNewHabit: $presentNewHabit)
+        })
     }
     
     private func splashText(p: Double) -> String{
@@ -90,13 +91,6 @@ struct HomeView: View {
         }
     }
     
-    private func addChallenge() {
-        withAnimation {
-            let newChallenge = Challenge(name: "Habit", startDate: Date.now, endDate: Date().addingTimeInterval(60*60*24*30))
-            modelContext.insert(newChallenge)
-        }
-    }
-
     private func deleteChallenges(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
